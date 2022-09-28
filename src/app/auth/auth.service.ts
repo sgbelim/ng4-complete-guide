@@ -19,12 +19,10 @@ export interface AuthResponseData {
 })
 export class AuthService {
 
+  user = new BehaviorSubject<User>(null);
   private apiKey: string = 'AIzaSyBLs2uWAlXCXVJvOlK1pwyO7so6HPDDrmk'
-
   private signupUrl: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`
   private signInUrl: string = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`
-
-  user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {

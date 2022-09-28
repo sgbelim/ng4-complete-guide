@@ -10,9 +10,9 @@ import {Recipe} from "../recipe.model";
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
-  private id: number;
   editMode: boolean = false;
   recipeForm: FormGroup;
+  private id: number;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) {
   }
@@ -41,6 +41,32 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.recipeService.addRecipe(newRecipe);
     }
+  }
+
+  getIngredientsControl() {
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
+
+  onAddIngredient() {
+
+    const ingredients = (<FormArray>this.recipeForm.get('ingredients'));
+
+    ingredients.push(new FormGroup({
+      'name': new FormControl(null, Validators.required),
+      'amount': new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^[1-9]+[0-9]*$/)])
+    }))
+  }
+
+  onCancelRecipe() {
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+  onDeleteIngredient(index: number) {
+    const ingredients = (<FormArray>this.recipeForm.get('ingredients'));
+
+    ingredients.removeAt(index);
   }
 
   private initForm() {
@@ -73,31 +99,5 @@ export class RecipeEditComponent implements OnInit {
       'description': new FormControl(recipeDescription, Validators.required),
       'ingredients': recipeIngredients
     })
-  }
-
-  getIngredientsControl() {
-    return (<FormArray>this.recipeForm.get('ingredients')).controls;
-  }
-
-  onAddIngredient() {
-
-    const ingredients = (<FormArray>this.recipeForm.get('ingredients'));
-
-    ingredients.push(new FormGroup({
-      'name': new FormControl(null, Validators.required),
-      'amount': new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^[1-9]+[0-9]*$/)])
-    }))
-  }
-
-  onCancelRecipe() {
-    this.router.navigate(['../'], {relativeTo: this.route});
-  }
-
-  onDeleteIngredient(index: number) {
-    const ingredients = (<FormArray>this.recipeForm.get('ingredients'));
-
-    ingredients.removeAt(index);
   }
 }
