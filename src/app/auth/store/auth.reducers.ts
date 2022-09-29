@@ -58,6 +58,12 @@ export function AuthReducers(state: State = initialState,
         user: null
       }
 
+    case AuthActions.CLEAR_ERROR:
+
+      return {
+        ...state,
+        authError: null
+      }
 
     default:
       return state;
