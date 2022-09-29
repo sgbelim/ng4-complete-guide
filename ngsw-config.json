@@ -12,6 +12,9 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css?family=Oswald:300,700"
         ]
       }
     },
@@ -24,6 +27,20 @@
           "/assets/**",
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "recipes",
+      "urls": [
+        "https://ng-course-recipe-book-f8839-default-rtdb.firebaseio.com/recipes.json"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 5,
+        "maxAge": "12h",
+        "timeout": "10s"
       }
     }
   ]
