@@ -5,10 +5,12 @@
 
     <hr/>
     <ul class="list-group">
-      <a (click)="onEditItem(id)"
-         *ngFor="let ingredient of ingredients; let id = index"
-         class="list-group-item"
-         style="cursor:pointer">
+      <a
+        class="list-group-item"
+        style="cursor:pointer"
+        *ngFor="let ingredient of (ingredients | async).ingredients; let id = index"
+         (click)="onEditItem(id)"
+        >
         {{ingredient.name}} ({{ingredient.amount}})
       </a>
     </ul>
